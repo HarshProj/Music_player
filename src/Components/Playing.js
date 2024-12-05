@@ -99,7 +99,7 @@ export const Playing = ({ musicData, setMusicData }) => {
       <div className="w-[80%] h-[40vh] mb-5 bg-[#6B0000] drop-shadow-sm rounded-xl text-[#F6F6F6] flex flex-col justify-center items-center">
         <div className="text-sm w-full h-4 text-center mb-2">Now Playing</div>
         <div
-          style={{ backgroundImage: `url("/Assets/pic.png")` }}
+          style={{ backgroundImage: `url("/Assets/Pic.png")` }}
           className="w-[90%] h-[20vh] bg-contain bg-no-repeat"
         ></div>
         <div className="w-[80%] h-[5vh] flex items-center flex-col">
