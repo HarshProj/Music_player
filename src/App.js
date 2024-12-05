@@ -4,9 +4,56 @@ import { Left } from "./Components/Left";
 import { Artist } from "./Components/Artist";
 import { MusicTable } from "./Components/MusicTable";
 import { Playing } from "./Components/Playing";
+import { useState } from "react";
 
 function App() {
-
+  const [musicData, setMusicData] = useState([
+    {
+      id: 1,
+      title: "Billie Jean",
+      playing: false,
+      image: "/Assets/1.png",
+      time: "3:53",
+      location:"/Songs/song2.mp3",
+      album: "Divide",
+    },
+    {
+      id: 2,
+      title: "Beat It",
+      playing: true,
+      location:"/Songs/song1.mp3",
+      image: "/Assets/1.png",
+      time: "3:20",
+      album: "After Hours",
+    },
+    {
+      id: 3,
+      title: "Smooth Criminal-2012 Rema...",
+      playing: false,
+      image: "/Assets/3.png",
+      location:"/Songs/song3.mp3",
+      time: "3:23",
+      album: "Future Nostalgia",
+    },
+    {
+      id: 4,
+      title: "Don't Stop 'til You Get Enough",
+      playing: false,
+      image: "/Assets/4.png",
+      location:"/Songs/song4.mp3",
+      time: "3:23",
+      album: "Future Nostalgia",
+    },
+    {
+      id: 5,
+      title: "Rock With You-Single Version",
+      playing: false,
+      image: "/Assets/4.png",
+      location:"/Songs/song5.mp3",
+      time: "3:23",
+      album: "Future Nostalgia",
+    },
+  ]);
   return (
     <div className="">
       <div className="w-full h-full flex">
@@ -38,13 +85,13 @@ linear-gradient(90deg, rgba(0, 0, 0, 0) 73.01%, rgba(15, 15, 15, 0.6) 73.01%);ap
                 <span className="hover:cursor-pointer">See All</span>
               </div>
               
-                <MusicTable/>
+                <MusicTable musicData={musicData} setMusicData={setMusicData}/>
                 
               
             </div>
           </div>
         </div>
-        <Playing/>
+        <Playing musicData={musicData} setMusicData={setMusicData}/>
       </div>
         </div>
     </div>

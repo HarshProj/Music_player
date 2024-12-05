@@ -31,16 +31,16 @@ export const Left = () => {
             <div className="flex gap-1 flex-col">
               <div className="text-xs">Menu</div>
               <ul className="text-lg">
-                <li className="flex items-center gap-4"><House size={20} style={{
+                <li className="flex items-center gap-4 hover:cursor-pointer"><House size={20} style={{
                     fill: "url(#icon-gradient)", // Refer to the defined gradient
                   }} weight="fill" />Home</li>
-                <li className="flex items-center gap-4"><TrendUp size={20} style={{
+                <li className="flex items-center gap-4 hover:cursor-pointer"><TrendUp size={20} style={{
                     fill: "url(#icon-gradient)", // Refer to the defined gradient
                   }} weight="fill" />Trends</li>
-                <li className="flex items-center gap-4"><MusicNotesSimple  size={20} style={{
+                <li className="flex items-center gap-4 hover:cursor-pointer"><MusicNotesSimple  size={20} style={{
                     fill: "url(#icon-gradient)", // Refer to the defined gradient
                   }} weight="fill" />Library</li>
-                <li className="flex items-center gap-4"><Compass size={20} style={{
+                <li className="flex items-center gap-4 hover:cursor-pointer"><Compass size={20} style={{
                     fill: "url(#icon-gradient)", // Refer to the defined gradient
                   }} weight="fill" />Discovery</li>
               </ul>
@@ -50,10 +50,10 @@ export const Left = () => {
           <div className=" flex gap-1 flex-col">
               <div className="text-xs">General</div>
               <ul className="text-lg">
-                <li className="flex items-center gap-4"><GearSix size={20} style={{
+                <li className="flex items-center gap-4 hover:cursor-pointer"><GearSix size={20} style={{
                     fill: "url(#icon-gradient)", // Refer to the defined gradient
                   }} weight="fill" />Setting</li>
-                <li className="flex items-center gap-4"><SignOut size={20} style={{
+                <li className="flex items-center gap-4 hover:cursor-pointer"><SignOut size={20} style={{
                     fill: "url(#icon-gradient)", // Refer to the defined gradient
                   }} weight="fill" />Trends</li>
               </ul>

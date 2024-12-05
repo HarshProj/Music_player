@@ -1,48 +1,7 @@
 import React, { useState } from "react";
 
-export const MusicTable = () => {
-  const [musicData, setMusicData] = useState([
-    {
-      id: 1,
-      title: "Billie Jean",
-      playing: false,
-      image: "/Assets/1.png",
-      time: "3:53",
-      album: "Divide",
-    },
-    {
-      id: 2,
-      title: "Beat It",
-      playing: true,
-      image: "/Assets/1.png",
-      time: "3:20",
-      album: "After Hours",
-    },
-    {
-      id: 3,
-      title: "Smooth Criminal-2012 Rema...",
-      playing: false,
-      image: "/Assets/3.png",
-      time: "3:23",
-      album: "Future Nostalgia",
-    },
-    {
-      id: 4,
-      title: "Don't Stop 'til You Get Enough",
-      playing: false,
-      image: "/Assets/4.png",
-      time: "3:23",
-      album: "Future Nostalgia",
-    },
-    {
-      id: 5,
-      title: "Rock With You-Single Version",
-      playing: false,
-      image: "/Assets/4.png",
-      time: "3:23",
-      album: "Future Nostalgia",
-    },
-  ]);
+export const MusicTable = ({musicData,setMusicData}) => {
+  
 
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData("draggedIndex", index);

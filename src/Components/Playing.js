@@ -1,13 +1,23 @@
 import { Pause, Play, Repeat, Shuffle, SkipBack, SkipForward } from '@phosphor-icons/react';
 import React, { useState, useRef, useEffect } from 'react';
 
-export const Playing = () => {
+export const Playing = ({ musicData, setMusicData }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [song, setSong] = useState({});
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
   const audioRef = useRef(null);
+
+  // Update the current song when musicData changes
+  useEffect(() => {
+    const currentSong = musicData.find((song) => song.playing);
+    setSong(currentSong || {});
+    setIsPlaying(false);
+    setProgress(0)
+    setCurrentTime(0);
+  }, [musicData]);
 
   // Format time in minutes:seconds
   const formatTime = (time) => {
@@ -53,12 +63,36 @@ export const Playing = () => {
       audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
     };
   }, []);
-
+  const prev=(ind)=>{
+    if(ind-1<0){
+      setMusicData((songs)=>
+        songs.map((data,index)=>({
+          ...data,
+          playing:(musicData.length-1)===index
+      })))
+    }
+    else{
+      setMusicData((songs)=>
+        songs.map((data,index)=>({
+          ...data,
+          playing:(ind-1)===index
+      })))
+    }
+  }
+  const next=(ind)=>{
+    
+      setMusicData((songs)=>
+        songs.map((data,index)=>({
+          ...data,
+          playing:((ind+1)%musicData.length)===index
+      })))
+    
+  }
   return (
     <div className="w-[25%] h-[100vh] flex bg-[#210909] items-end justify-center">
       <audio
         ref={audioRef}
-        src="/Songs/song1.mp3"
+        src={song?.location || ""}
         onTimeUpdate={updateProgress}
       ></audio>
 
@@ -69,8 +103,9 @@ export const Playing = () => {
           className="w-[90%] h-[20vh] bg-contain bg-no-repeat"
         ></div>
         <div className="w-[80%] h-[5vh] flex items-center flex-col">
-          <h3 className="text-lg">Beat It</h3>
-          <span className="text-sm">Michael Jackson</span>
+        <h3 className="text-lg">{song?.title ? song.title.slice(0, 14) + "..." : "No Song Selected"}</h3>
+
+          <span className="text-sm">{song?.album || ""}</span>
         </div>
 
         {/* Progress Bar */}
@@ -98,21 +133,27 @@ export const Playing = () => {
               <Repeat size={20} className="hover:cursor-pointer" />
             </li>
             <li>
-              <SkipBack size={20} className="hover:cursor-pointer" weight="fill" />
+              <SkipBack size={20} className="hover:cursor-pointer" weight="fill" onClick={()=>{prev(song.id-1)}}/>
             </li>
             <li>
-              {isPlaying?<Pause  size={20}
-                className="hover:cursor-pointer"
-                weight="fill"
-                onClick={togglePlayPause}/>:<Play
-                size={20}
-                className="hover:cursor-pointer"
-                weight="fill"
-                onClick={togglePlayPause}
-              />}
+              {isPlaying ? (
+                <Pause
+                  size={20}
+                  className="hover:cursor-pointer"
+                  weight="fill"
+                  onClick={togglePlayPause}
+                />
+              ) : (
+                <Play
+                  size={20}
+                  className="hover:cursor-pointer"
+                  weight="fill"
+                  onClick={togglePlayPause}
+                />
+              )}
             </li>
             <li>
-              <SkipForward size={20} className="hover:cursor-pointer" weight="fill" />
+              <SkipForward size={20} className="hover:cursor-pointer" weight="fill" onClick={()=>{next(song.id-1)}}/>
             </li>
             <li>
               <Shuffle size={20} className="hover:cursor-pointer" />
