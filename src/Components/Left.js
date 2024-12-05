@@ -2,7 +2,7 @@ import {Compass, GearSix, House, MagnifyingGlass, MusicNotes, MusicNotesSimple, 
 
 export const Left = () => {
   return (
-    <div className="w-[20%] h-[100vh]  flex flex-col gap-4 bg-black items-center">
+    <div className="w-[20%] h-[100vh]  flex flex-col gap-4 bg-black items-center max-2xl:hidden">
           <div className=" h-[10vh]  flex items-center justify-center mb-4 ">
             <div className="w-[90%] h-[13vh] flex items-center gap-2">
             <svg width="0" height="0">

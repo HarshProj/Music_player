@@ -62,9 +62,9 @@ function App() {
         {/* background: linear-gradient(180deg, #4C0000 0%, #0A0A0A 100%),
 linear-gradient(90deg, rgba(0, 0, 0, 0) 73.01%, rgba(15, 15, 15, 0.6) 73.01%);apply this liner gradient to the segment given below */}
 
-        <div  className="w-[80%] gradient-background flex text-[#E5DDDD]"
+        <div  className="w-[80%] max-2xl:w-[100%] gradient-background flex text-[#E5DDDD]"
           >
-        <div className="w-[75%] h-[100vh] ">
+        <div className="w-[75%] h-[100vh] max-lg:w-[100%]">
           <div className="w-full h-[100vh]  flex flex-col">
             <div className="w-full h-[10vh] flex items-center gap-3">
               <ul className='w-[50%] flex gap-5 justify-center'>

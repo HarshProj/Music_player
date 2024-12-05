@@ -39,7 +39,7 @@ Verified Artist</span>
     <span className='mt-7'>22,852,501 monthly listeners</span>
   </div>
  </div>
- <div style={{ backgroundImage: `url("/Assets/Michael.png")` }} className=" absolute bg-no-repeat w-[70%] h-full right-2"></div>
+ <div style={{ backgroundImage: `url("/Assets/Michael.png")` }} className=" absolute bg-no-repeat w-[70%] h-full right-2 max-xl:w-[90%] max-sm:hidden"></div>
  </div>
  </div>
   )

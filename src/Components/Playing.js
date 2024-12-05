@@ -89,7 +89,7 @@ export const Playing = ({ musicData, setMusicData }) => {
     
   }
   return (
-    <div className="w-[25%] h-[100vh] flex bg-[#210909] items-end justify-center">
+    <div className="w-[25%] h-[100vh] flex bg-[#210909] items-end justify-center max-lg:hidden">
       <audio
         ref={audioRef}
         src={song?.location || ""}
