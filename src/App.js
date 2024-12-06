@@ -64,16 +64,16 @@ linear-gradient(90deg, rgba(0, 0, 0, 0) 73.01%, rgba(15, 15, 15, 0.6) 73.01%);ap
 
         <div  className="w-[80%] max-2xl:w-[100%] gradient-background flex text-[#E5DDDD]"
           >
-        <div className="w-[75%] h-[100vh] max-lg:w-[100%]">
+        <div className="w-[75%] h-[100vh] max-lg:w-[100%] max-lg:h-[110vh] ">
           <div className="w-full h-[100vh]  flex flex-col">
-            <div className="w-full h-[10vh] flex items-center gap-3">
-              <ul className='w-[50%] flex gap-5 justify-center'>
-              <li>Music</li>
-              <li>Podcast</li>
-              <li>Live</li>
-              <li>Radio</li>
+            <div className="w-full h-[10vh] flex items-center gap-3 ">
+              <ul className='w-[50%] flex gap-5 justify-center max-sm:left-7 relative'>
+              <li className="hover:cursor-pointer">Music</li>
+              <li className="hover:cursor-pointer">Podcast</li>
+              <li className="hover:cursor-pointer">Live</li>
+              <li className="hover:cursor-pointer">Radio</li>
               </ul>
-              <div className="w-[40%] h-[5vh] relative flex items-center ">
+              <div className="w-[40%] h-[5vh] relative flex items-center max-sm:hidden">
                 <input type="search" className=' text-white border-2 w-[100%] h-full rounded-full pl-2 bg-[#2C0000]' placeholder='Michael Jackson'/>
                 <span className="absolute right-3  hover:cursor-pointer "> <MagnifyingGlass size={25} className="text-white"/></span>
               </div>

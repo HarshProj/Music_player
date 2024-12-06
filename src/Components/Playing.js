@@ -1,5 +1,5 @@
-import { Pause, Play, Repeat, Shuffle, SkipBack, SkipForward } from '@phosphor-icons/react';
-import React, { useState, useRef, useEffect } from 'react';
+import { Pause, Play, Repeat, Shuffle, SkipBack, SkipForward } from "@phosphor-icons/react";
+import React, { useState, useRef, useEffect } from "react";
 
 export const Playing = ({ musicData, setMusicData }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -10,23 +10,20 @@ export const Playing = ({ musicData, setMusicData }) => {
 
   const audioRef = useRef(null);
 
-  // Update the current song when musicData changes
   useEffect(() => {
     const currentSong = musicData.find((song) => song.playing);
     setSong(currentSong || {});
     setIsPlaying(false);
-    setProgress(0)
+    setProgress(0);
     setCurrentTime(0);
   }, [musicData]);
 
-  // Format time in minutes:seconds
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60).toString().padStart(2, '0');
+    const seconds = Math.floor(time % 60).toString().padStart(2, "0");
     return `${minutes}:${seconds}`;
   };
 
-  // Play/Pause functionality
   const togglePlayPause = () => {
     const audio = audioRef.current;
     if (isPlaying) {
@@ -37,14 +34,12 @@ export const Playing = ({ musicData, setMusicData }) => {
     setIsPlaying(!isPlaying);
   };
 
-  // Update progress bar and time
   const updateProgress = () => {
     const audio = audioRef.current;
     setProgress((audio.currentTime / audio.duration) * 100);
     setCurrentTime(audio.currentTime);
   };
 
-  // Seek functionality
   const handleSeek = (e) => {
     const audio = audioRef.current;
     const newTime = (e.target.value / 100) * audio.duration;
@@ -52,113 +47,111 @@ export const Playing = ({ musicData, setMusicData }) => {
     setProgress(e.target.value);
   };
 
-  // Load metadata (duration)
   useEffect(() => {
     const audio = audioRef.current;
     const handleLoadedMetadata = () => {
       setDuration(audio.duration);
     };
-    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
     return () => {
-      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
     };
   }, []);
-  const prev=(ind)=>{
-    if(ind-1<0){
-      setMusicData((songs)=>
-        songs.map((data,index)=>({
-          ...data,
-          playing:(musicData.length-1)===index
-      })))
-    }
-    else{
-      setMusicData((songs)=>
-        songs.map((data,index)=>({
-          ...data,
-          playing:(ind-1)===index
-      })))
-    }
-  }
-  const next=(ind)=>{
-    
-      setMusicData((songs)=>
-        songs.map((data,index)=>({
-          ...data,
-          playing:((ind+1)%musicData.length)===index
-      })))
-    
-  }
+
+  const prev = (ind) => {
+    setMusicData((songs) =>
+      songs.map((data, index) => ({
+        ...data,
+        playing: ind - 1 < 0 ? musicData.length - 1 === index : ind - 1 === index,
+      }))
+    );
+  };
+
+  const next = (ind) => {
+    setMusicData((songs) =>
+      songs.map((data, index) => ({
+        ...data,
+        playing: (ind + 1) % musicData.length === index,
+      }))
+    );
+  };
+
   return (
-    <div className="w-[25%] h-[100vh] flex bg-[#210909] items-end justify-center max-lg:hidden">
+    <div
+      className="w-full h-[10vh] lg:w-[25%] lg:h-[100vh] flex bg-[#210909] items-end justify-center 
+      max-lg:items-center max-lg:justify-center fixed bottom-0 lg:static  max-lg:bg-transparent"
+    >
       <audio
         ref={audioRef}
         src={song?.location || ""}
         onTimeUpdate={updateProgress}
       ></audio>
 
-      <div className="w-[80%] h-[40vh] mb-5 bg-[#6B0000] drop-shadow-sm rounded-xl text-[#F6F6F6] flex flex-col justify-center items-center">
-        <div className="text-sm w-full h-4 text-center mb-2">Now Playing</div>
+      <div
+        className="w-[90%] lg:w-[80%] h-[12vh] lg:h-[40vh] mb-3 lg:mb-5 bg-[#6B0000] max-lg:backdrop-blur-lg max-lg:bg-transparent
+        shadow-md rounded-xl text-[#F6F6F6] flex flex-col justify-center items-center px-4 py-2"
+      >
+        <div className="text-xs lg:text-sm w-full text-center mb-2 max-lg:hidden">Now Playing</div>
+
         <div
           style={{ backgroundImage: `url("/Assets/Pic.png")` }}
-          className="w-[90%] h-[20vh] bg-contain bg-no-repeat"
+          className="w-[60px] h-[60px] lg:w-[90%] lg:h-[20vh] bg-contain bg-no-repeat max-lg:hidden"
         ></div>
-        <div className="w-[80%] h-[5vh] flex items-center flex-col">
-        <h3 className="text-lg">{song?.title ? song.title.slice(0, 14) + "..." : "No Song Selected"}</h3>
 
-          <span className="text-sm">{song?.album || ""}</span>
+        <div className="w-full lg:w-[80%] h-auto flex flex-col items-center text-center mt-2">
+          <h3 className="text-sm lg:text-lg">
+            {song?.title ? song.title.slice(0, 14) + "..." : "No Song Selected"}
+          </h3>
+          <span className="text-xs lg:text-sm max-lg:hidden">{song?.album || ""}</span>
         </div>
 
-        {/* Progress Bar */}
-        <div className="h-[5vh] w-[80%] flex items-center justify-center gap-2">
-          <span className="text-sm">{formatTime(currentTime)}</span>
+        <div className="flex items-center justify-center gap-2 w-full mt-2">
+          <span className="text-xs lg:text-sm">{formatTime(currentTime)}</span>
           <input
             type="range"
             value={progress}
             onChange={handleSeek}
             min="0"
             max="100"
-            className="w-[70%] h-1 appearance-none rounded-full outline-none"
+            className="w-full h-1 lg:w-[70%] appearance-none rounded-full outline-none"
             style={{
-              WebkitAppearance: 'none',
+              WebkitAppearance: "none",
               background: `linear-gradient(to right, white ${progress}%, #F6F6F680 ${progress}%)`,
             }}
           />
-          <span className="text-sm">{formatTime(duration)}</span>
+          <span className="text-xs lg:text-sm">{formatTime(duration)}</span>
         </div>
 
-        {/* Controls */}
-        <div className="h-[5vh] w-[80%]">
-          <ul className="flex justify-between w-full">
-            <li>
-              <Repeat size={20} className="hover:cursor-pointer" />
-            </li>
-            <li>
-              <SkipBack size={20} className="hover:cursor-pointer" weight="fill" onClick={()=>{prev(song.id-1)}}/>
-            </li>
-            <li>
-              {isPlaying ? (
-                <Pause
-                  size={20}
-                  className="hover:cursor-pointer"
-                  weight="fill"
-                  onClick={togglePlayPause}
-                />
-              ) : (
-                <Play
-                  size={20}
-                  className="hover:cursor-pointer"
-                  weight="fill"
-                  onClick={togglePlayPause}
-                />
-              )}
-            </li>
-            <li>
-              <SkipForward size={20} className="hover:cursor-pointer" weight="fill" onClick={()=>{next(song.id-1)}}/>
-            </li>
-            <li>
-              <Shuffle size={20} className="hover:cursor-pointer" />
-            </li>
-          </ul>
+        <div className="flex justify-between w-full mt-2">
+          <Repeat size={20} className="hover:cursor-pointer" />
+          <SkipBack
+            size={20}
+            className="hover:cursor-pointer"
+            weight="fill"
+            onClick={() => prev(song.id - 1)}
+          />
+          {isPlaying ? (
+            <Pause
+              size={20}
+              className="hover:cursor-pointer"
+              weight="fill"
+              onClick={togglePlayPause}
+            />
+          ) : (
+            <Play
+              size={20}
+              className="hover:cursor-pointer"
+              weight="fill"
+              onClick={togglePlayPause}
+            />
+          )}
+          <SkipForward
+            size={20}
+            className="hover:cursor-pointer"
+            weight="fill"
+            onClick={() => next(song.id - 1)}
+          />
+          <Shuffle size={20} className="hover:cursor-pointer" />
         </div>
       </div>
     </div>

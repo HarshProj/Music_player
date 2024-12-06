@@ -33,13 +33,13 @@ export const MusicTable = ({musicData,setMusicData}) => {
       <table className="w-full h-full text-left text-sm">
         <thead className="h-full w-full">
           <tr>
-            <th className="h-[4vh] px-4"></th>
+            <th className="h-[4vh] px-4 "></th>
             <th className="h-[4vh] px-4">#</th>
             <th className="h-[4vh] px-4 relative left-10">Title</th>
-            <th className="h-[4vh] px-4 relative left-5">Playing</th>
-            <th className="h-[4vh] px-4 relative left-3">Time</th>
-            <th className="h-[4vh] px-4 text-center">Album</th>
-            <th className="h-[4vh] px-4"></th>
+            <th className="h-[4vh] px-4 relative left-5 max-sm:left-0">Playing</th>
+            <th className="h-[4vh] px-4 relative left-3 max-sm:left-0">Time</th>
+            <th className="h-[4vh] px-4 text-center max-sm:hidden">Album</th>
+            <th className="h-[4vh] px-4 max-sm:hidden"></th>
           </tr>
         </thead>
         <tbody>
@@ -58,7 +58,7 @@ export const MusicTable = ({musicData,setMusicData}) => {
               <td className="h-full flex justify-start">
                 <div
                   className={`${
-                    song.playing ? "w-1 h-full bg-[#CA0000]" : ""
+                    song.playing ? "h-full bg-[#CA0000]" : ""
                   }`}
                 ></div>
               </td>
@@ -71,8 +71,8 @@ export const MusicTable = ({musicData,setMusicData}) => {
                 {song.playing ? "Yes" : "No"}
               </td>
               <td className="h-[7vh] px-4 text-center">{song.time}</td>
-              <td className="h-[7vh] px-4">{song.album}</td>
-              <td className="px-4 text-center"></td>
+              <td className="h-[7vh] px-4 max-sm:hidden">{song.album}</td>
+              <td className="px-4 text-center max-sm:hidden"></td>
             </tr>
           ))}
         </tbody>
