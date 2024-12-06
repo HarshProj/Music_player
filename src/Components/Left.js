@@ -23,7 +23,7 @@ export const Left = () => {
   return (
     <div className="w-[20%] max-2xl:fixed z-50">
       {/* Hamburger Button */}
-      <div className="fixed top-4 right-4 z-50 max-2xl:block 2xl:hidden">
+      <div className="fixed top-2 right-4 z-50 max-2xl:block 2xl:hidden">
         <button
           onClick={toggleSidebar}
           className="p-2 bg-black text-white rounded-full"
@@ -43,8 +43,8 @@ export const Left = () => {
         2xl:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"} max-2xl:2xl:flex`}
       >
         {/* Header */}
-        <div className="h-[10vh] flex items-center justify-center mb-4">
-          <div className="w-[90%] h-[13vh] flex items-center gap-2">
+        <div className="h-[10vh] flex items-center justify-center mb-4 ">
+          <div className="w-[90%] h-[13vh] flex items-center gap-2 ">
             <svg width="0" height="0">
               <defs>
                 <linearGradient
@@ -78,13 +78,13 @@ export const Left = () => {
         </div>
 
         {/* Menu Section */}
-        <div className="h-[75vh] w-[80%] text-[#F6F6F6]">
-          <div className="flex gap-1 flex-col">
-            <div className="text-xs">Menu</div>
-            <ul className="text-lg">
-              <li className="flex items-center gap-4 hover:cursor-pointer">
+        <div className="h-[65vh] w-[80%] text-[#F6F6F6]">
+          <div className="flex  flex-col gap-2 ">
+            <div className="text-sm font-semibold text-gray-400">MENU</div>
+            <ul className="text-lg flex flex-col gap-4">
+              <li className="flex items-center gap-4 tracking-wider font-semibold text-[15px] hover:cursor-pointer ">
                 <House
-                  size={20}
+                  size={24}
                   style={{
                     fill: "url(#icon-gradient)", // Refer to the defined gradient
                   }}
@@ -92,9 +92,9 @@ export const Left = () => {
                 />
                 Home
               </li>
-              <li className="flex items-center gap-4 hover:cursor-pointer">
+              <li className="flex items-center gap-4 tracking-wider font-semibold text-[15px] hover:cursor-pointer ">
                 <TrendUp
-                  size={20}
+                  size={24}
                   style={{
                     fill: "url(#icon-gradient)", // Refer to the defined gradient
                   }}
@@ -102,9 +102,9 @@ export const Left = () => {
                 />
                 Trends
               </li>
-              <li className="flex items-center gap-4 hover:cursor-pointer">
+              <li className="flex items-center gap-4 tracking-wider font-semibold text-[15px] hover:cursor-pointer ">
                 <MusicNotesSimple
-                  size={20}
+                  size={24}
                   style={{
                     fill: "url(#icon-gradient)", // Refer to the defined gradient
                   }}
@@ -112,9 +112,9 @@ export const Left = () => {
                 />
                 Library
               </li>
-              <li className="flex items-center gap-4 hover:cursor-pointer">
+              <li className="flex items-center gap-4 tracking-wider font-semibold text-[15px] hover:cursor-pointer ">
                 <Compass
-                  size={20}
+                  size={24}
                   style={{
                     fill: "url(#icon-gradient)", // Refer to the defined gradient
                   }}
@@ -122,22 +122,22 @@ export const Left = () => {
                 />
                 Discovery
               </li>
-              <li className="sm:hidden mt-5"><div className="w-[90%] h-[5vh] relative flex items-center">
-                <input type="search" className=' text-white border-2 w-[100%] h-full rounded-full pl-2 bg-[#2C0000]' placeholder='Michael Jackson'/>
-                <span className="absolute right-3  hover:cursor-pointer "> <MagnifyingGlassMinus size={25} className="text-white"/></span>
+              <li className="sm:hidden mt-5"><div className="w-full px-4 py-2 relative flex items-center">
+                <input type="search" className=' text-white border-2 w-[100%] px-4 py-2 h-full rounded-full border-none bg-[#2C0000]' placeholder='Michael Jackson'/>
+                <span className="absolute right-6  hover:cursor-pointer "> <MagnifyingGlassMinus size={25} className="text-white"/></span>
               </div></li>
             </ul>
           </div>
         </div>
 
         {/* General Section */}
-        <div className="h-[15vh] w-[80%] text-[#F6F6F6]">
-          <div className="flex gap-1 flex-col">
-            <div className="text-xs">General</div>
-            <ul className="text-lg">
-              <li className="flex items-center gap-4 hover:cursor-pointer">
+        <div className="h-[10vh] w-[80%] text-[#F6F6F6]">
+          <div className="flex gap-2 flex-col">
+            <div className="text-sm font-semibold text-gray-400">GENERAL</div>
+            <ul className="text-lg flex flex-col gap-4">
+              <li className="flex items-center gap-4 tracking-wider font-semibold text-[15px] hover:cursor-pointer ">
                 <GearSix
-                  size={20}
+                  size={24}
                   style={{
                     fill: "url(#icon-gradient)", // Refer to the defined gradient
                   }}
@@ -145,9 +145,9 @@ export const Left = () => {
                 />
                 Setting
               </li>
-              <li className="flex items-center gap-4 hover:cursor-pointer">
+              <li className="flex items-center gap-4 tracking-wider font-semibold text-[15px] hover:cursor-pointer ">
                 <SignOut
-                  size={20}
+                  size={24}
                   style={{
                     fill: "url(#icon-gradient)", // Refer to the defined gradient
                   }}

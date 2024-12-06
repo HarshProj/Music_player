@@ -7,7 +7,6 @@ export const Playing = ({ musicData, setMusicData }) => {
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -36,7 +35,10 @@ export const Playing = ({ musicData, setMusicData }) => {
 
   const updateProgress = () => {
     const audio = audioRef.current;
-    setProgress((audio.currentTime / audio.duration) * 100);
+    const x=(audio.currentTime / audio.duration) * 100;
+    if (!isNaN(x)) {
+      setProgress(x);
+    }
     setCurrentTime(audio.currentTime);
   };
 
@@ -44,7 +46,7 @@ export const Playing = ({ musicData, setMusicData }) => {
     const audio = audioRef.current;
     const newTime = (e.target.value / 100) * audio.duration;
     audio.currentTime = newTime;
-    setProgress(e.target.value);
+    if(!isNaN(e.target.value)) setProgress(e.target.value)
   };
 
   useEffect(() => {
@@ -76,6 +78,7 @@ export const Playing = ({ musicData, setMusicData }) => {
     );
   };
 
+
   return (
     <div
       className="w-full h-[10vh] lg:w-[25%] lg:h-[100vh] flex bg-[#210909] items-end justify-center 
@@ -85,10 +88,10 @@ export const Playing = ({ musicData, setMusicData }) => {
         ref={audioRef}
         src={song?.location || ""}
         onTimeUpdate={updateProgress}
-      ></audio>
+      />
 
       <div
-        className="w-[90%] lg:w-[80%] h-[12vh] lg:h-[40vh] mb-3 lg:mb-5 bg-[#6B0000] max-lg:backdrop-blur-lg max-lg:bg-transparent
+        className="w-[90%] lg:w-[80%] h- lg:h-[40vh] mb-3 lg:mb-5 bg-[#6B0000] max-lg:backdrop-blur-lg max-lg:bg-transparent
         shadow-md rounded-xl text-[#F6F6F6] flex flex-col justify-center items-center px-4 py-2"
       >
         <div className="text-xs lg:text-sm w-full text-center mb-2 max-lg:hidden">Now Playing</div>
@@ -113,6 +116,7 @@ export const Playing = ({ musicData, setMusicData }) => {
             onChange={handleSeek}
             min="0"
             max="100"
+            defaultValue={0}
             className="w-full h-1 lg:w-[70%] appearance-none rounded-full outline-none"
             style={{
               WebkitAppearance: "none",
