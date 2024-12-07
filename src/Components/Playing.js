@@ -1,5 +1,6 @@
 import { Pause, Play, Repeat, Shuffle, SkipBack, SkipForward } from "@phosphor-icons/react";
 import React, { useState, useRef, useEffect } from "react";
+import { Howl } from "howler";  
 
 export const Playing = ({ musicData, setMusicData }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -7,7 +8,7 @@ export const Playing = ({ musicData, setMusicData }) => {
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const audioRef = useRef(null);
+  const [howl, setHowl] = useState(null); // For holding the Howl instance
 
   useEffect(() => {
     const currentSong = musicData.find((song) => song.playing);
@@ -15,6 +16,26 @@ export const Playing = ({ musicData, setMusicData }) => {
     setIsPlaying(false);
     setProgress(0);
     setCurrentTime(0);
+
+    if (currentSong) {
+      const newHowl = new Howl({
+        src: [currentSong.location],
+        html5: true, // Ensure we load the song for efficient streaming
+        onload: () => setDuration(newHowl.duration()),
+        onplay: () => setIsPlaying(true),
+        onpause: () => setIsPlaying(false),
+        onend: () => next(currentSong.id - 1),
+        onseek: () => setCurrentTime(newHowl.seek()),
+        onloaderror: (id, error) => console.error("Howl load error:", error),
+        onplayerror: (id, error) => console.error("Howl play error:", error),
+      });
+
+      setHowl(newHowl);
+
+      return () => {
+        newHowl.unload();
+      };
+    }
   }, [musicData]);
 
   const formatTime = (time) => {
@@ -24,41 +45,27 @@ export const Playing = ({ musicData, setMusicData }) => {
   };
 
   const togglePlayPause = () => {
-    const audio = audioRef.current;
     if (isPlaying) {
-      audio.pause();
+      howl.pause();
     } else {
-      audio.play();
+      howl.play();
     }
-    setIsPlaying(!isPlaying);
   };
 
-  const updateProgress = () => {
-    const audio = audioRef.current;
-    const x=(audio.currentTime / audio.duration) * 100;
-    if (!isNaN(x)) {
-      setProgress(x);
-    }
-    setCurrentTime(audio.currentTime);
-  };
+  // const updateProgress = () => {
+  //   if (howl) {
+  //     setProgress((howl.seek() / howl.duration()) * 100);
+  //     setCurrentTime(howl.seek());
+  //   }
+  // };
 
   const handleSeek = (e) => {
-    const audio = audioRef.current;
-    const newTime = (e.target.value / 100) * audio.duration;
-    audio.currentTime = newTime;
-    if(!isNaN(e.target.value)) setProgress(e.target.value)
+    if (howl) {
+      const newTime = (e.target.value / 100) * howl.duration();
+      howl.seek(newTime);
+      setProgress(e.target.value);
+    }
   };
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    const handleLoadedMetadata = () => {
-      setDuration(audio.duration);
-    };
-    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
-    return () => {
-      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
-    };
-  }, []);
 
   const prev = (ind) => {
     setMusicData((songs) =>
@@ -78,18 +85,12 @@ export const Playing = ({ musicData, setMusicData }) => {
     );
   };
 
-
   return (
     <div
       className="w-full h-[10vh] lg:w-[25%] lg:h-[100vh] flex bg-[#210909] items-end justify-center 
       max-lg:items-center max-lg:justify-center fixed bottom-0 lg:static  max-lg:bg-transparent"
     >
-      <audio
-        ref={audioRef}
-        src={song?.location || ""}
-        onTimeUpdate={updateProgress}
-      />
-
+      
       <div
         className="w-[90%] lg:w-[80%] h- lg:h-[40vh] mb-3 lg:mb-5 bg-[#6B0000] max-lg:backdrop-blur-lg max-lg:bg-transparent
         shadow-md rounded-xl text-[#F6F6F6] flex flex-col justify-center items-center px-4 py-2"

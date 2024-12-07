@@ -1,36 +1,40 @@
 import React, { useState } from "react";
 
-export const MusicTable = ({musicData,setMusicData}) => {
-  
-
+export const MusicTable = ({ musicData, setMusicData }) => {
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData("draggedIndex", index);
   };
 
   const handleDragOver = (e) => {
-    e.preventDefault(); // Allow dropping by preventing the default behavior
+    e.preventDefault();
   };
 
   const handleDrop = (e, dropIndex) => {
     const draggedIndex = e.dataTransfer.getData("draggedIndex");
     const updatedMusicData = [...musicData];
-
-    // Remove the dragged item and reinsert it at the drop location
     const [draggedItem] = updatedMusicData.splice(draggedIndex, 1);
     updatedMusicData.splice(dropIndex, 0, draggedItem);
 
-    setMusicData(updatedMusicData);
+    setMusicData((prevSongs) => 
+      updatedMusicData.map((song, index) => ({
+        ...song,
+        playing: index === dropIndex ? true : false, 
+      }))
+    );
   };
-  const handleclick=(index)=>{
-    setMusicData((songs)=>
-      songs.map((data,ind)=>({
+
+  const handleClick = (index) => {
+    setMusicData((songs) =>
+      songs.map((data, ind) => ({
         ...data,
-        playing:ind===index
-    })))
-  }
+        playing: ind === index,
+      }))
+    );
+  };
+
   return (
-    <div className="h-full w-full flex justify-center">
-      <table className="w-full h-full text-left text-sm">
+    <div className=" w-full flex justify-center">
+      <table className="w-full h-full text-left text-sm ">
         <thead className="h-full w-full">
           <tr>
             <th className="h-[4vh] px-4 max-sm:hidden"></th>
@@ -53,7 +57,7 @@ export const MusicTable = ({musicData,setMusicData}) => {
               onDragStart={(e) => handleDragStart(e, index)}
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, index)}
-              onClick={()=>handleclick(index)}
+              onClick={() => handleClick(index)}
             >
               <td className="h-full py-2 flex justify-start max-sm:hidden">
                 <div
@@ -66,8 +70,7 @@ export const MusicTable = ({musicData,setMusicData}) => {
               <td className="px-4 py-2 flex items-center gap-4">
                 <img src={song.image} alt="" className="w-[45px] max-sm:hidden" />
                 <div className="flex flex-nowrap whitespace-nowrap overflow-hidden">
-
-                {song.title}
+                  {song.title}
                 </div>
               </td>
               <td className=" px-4 py-2 text-center max-sm:hidden">

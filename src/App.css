@@ -6,6 +6,9 @@ body{
   font-family: 'Poppins', sans-serif;
   background-color: black;
 }
+::-webkit-scrollbar {
+  display: none;
+}
 .gradient-background{
   background: 
     linear-gradient(180deg, #4C0000 0%, #0A0A0A 100%),
