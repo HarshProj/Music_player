@@ -33,7 +33,7 @@ export const MusicTable = ({ musicData, setMusicData }) => {
   };
 
   return (
-    <div className=" w-full flex justify-center">
+    <div className=" w-full flex justify-center ">
       <table className="w-full h-full text-left text-sm ">
         <thead className="h-full w-full">
           <tr>

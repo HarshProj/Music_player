@@ -56,15 +56,15 @@ function App() {
   ]);
   return (
     <div className="">
-      <div className="w-full h-[100vh]  flex bg-black">
+      <div className="w-full h-[100vh]  flex bg-black ">
 
         <Left/>
         {/* background: linear-gradient(180deg, #4C0000 0%, #0A0A0A 100%),
 linear-gradient(90deg, rgba(0, 0, 0, 0) 73.01%, rgba(15, 15, 15, 0.6) 73.01%);apply this liner gradient to the segment given below */}
 
-        <div  className="w-[80%] max-2xl:w-[100%] h-full gradient-background flex text-[#E5DDDD]"
+        <div  className="w-[80%] max-2xl:w-[100%] h-full gradient-background flex text-[#E5DDDD] "
           >
-        <div className="w-[75%]  max-lg:w-[100%] h-[100vh] overflow-y-scroll ">
+        <div className="w-[75%]  max-lg:w-[100%] h-[100vh] overflow-y-scroll max-lg:h-auto max-lg:mb-[100px]">
           <div className="w-full flex flex-col">
             <div className="w-full flex items-center gap-3 font-semibold ">
               <ul className='w-[50%]  max-sm:mt-4 flex gap-10 justify-center max-sm:left-14 relative'>
